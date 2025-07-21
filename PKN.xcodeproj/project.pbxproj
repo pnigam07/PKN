@@ -14,6 +14,11 @@
 		19CF6F9E2E2EBFCC0059D20A /* PKNTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF6F9D2E2EBFCC0059D20A /* PKNTests.swift */; };
 		19CF6FA82E2EBFCC0059D20A /* PKNUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF6FA72E2EBFCC0059D20A /* PKNUITests.swift */; };
 		19CF6FAA2E2EBFCC0059D20A /* PKNUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF6FA92E2EBFCC0059D20A /* PKNUITestsLaunchTests.swift */; };
+		19CF6FB72E2EBFE00059D20A /* PANRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF6FB62E2EBFE00059D20A /* PANRootView.swift */; };
+		19CF6FB92E2EBFE60059D20A /* MemberListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF6FB82E2EBFE60059D20A /* MemberListView.swift */; };
+		19CF6FBB2E2EBFEF0059D20A /* MemberRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF6FBA2E2EBFEF0059D20A /* MemberRowView.swift */; };
+		19CF6FBD2E2EC04E0059D20A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF6FBC2E2EC04E0059D20A /* Constants.swift */; };
+		19CF6FC02E2EC08A0059D20A /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 19CF6FBF2E2EC08A0059D20A /* ViewInspector */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +49,10 @@
 		19CF6FA32E2EBFCC0059D20A /* PKNUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PKNUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		19CF6FA72E2EBFCC0059D20A /* PKNUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKNUITests.swift; sourceTree = "<group>"; };
 		19CF6FA92E2EBFCC0059D20A /* PKNUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKNUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		19CF6FB62E2EBFE00059D20A /* PANRootView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PANRootView.swift; sourceTree = "<group>"; };
+		19CF6FB82E2EBFE60059D20A /* MemberListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberListView.swift; sourceTree = "<group>"; };
+		19CF6FBA2E2EBFEF0059D20A /* MemberRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberRowView.swift; sourceTree = "<group>"; };
+		19CF6FBC2E2EC04E0059D20A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19CF6FC02E2EC08A0059D20A /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +105,10 @@
 			isa = PBXGroup;
 			children = (
 				19CF6F8C2E2EBFCB0059D20A /* PKNApp.swift */,
+				19CF6FBC2E2EC04E0059D20A /* Constants.swift */,
+				19CF6FB62E2EBFE00059D20A /* PANRootView.swift */,
+				19CF6FB82E2EBFE60059D20A /* MemberListView.swift */,
+				19CF6FBA2E2EBFEF0059D20A /* MemberRowView.swift */,
 				19CF6F8E2E2EBFCB0059D20A /* ContentView.swift */,
 				19CF6F902E2EBFCC0059D20A /* Assets.xcassets */,
 				19CF6F922E2EBFCC0059D20A /* Preview Content */,
@@ -179,6 +193,9 @@
 				19CF6FA52E2EBFCC0059D20A /* PBXTargetDependency */,
 			);
 			name = PKNUITests;
+			packageProductDependencies = (
+				19CF6FBF2E2EC08A0059D20A /* ViewInspector */,
+			);
 			productName = PKNUITests;
 			productReference = 19CF6FA32E2EBFCC0059D20A /* PKNUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -215,6 +232,9 @@
 				Base,
 			);
 			mainGroup = 19CF6F802E2EBFCB0059D20A;
+			packageReferences = (
+				19CF6FBE2E2EC08A0059D20A /* XCRemoteSwiftPackageReference "ViewInspector" */,
+			);
 			productRefGroup = 19CF6F8A2E2EBFCB0059D20A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -258,7 +278,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				19CF6F8F2E2EBFCB0059D20A /* ContentView.swift in Sources */,
+				19CF6FB72E2EBFE00059D20A /* PANRootView.swift in Sources */,
+				19CF6FB92E2EBFE60059D20A /* MemberListView.swift in Sources */,
 				19CF6F8D2E2EBFCB0059D20A /* PKNApp.swift in Sources */,
+				19CF6FBB2E2EBFEF0059D20A /* MemberRowView.swift in Sources */,
+				19CF6FBD2E2EC04E0059D20A /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +612,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		19CF6FBE2E2EC08A0059D20A /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		19CF6FBF2E2EC08A0059D20A /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 19CF6FBE2E2EC08A0059D20A /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 19CF6F812E2EBFCB0059D20A /* Project object */;
 }
