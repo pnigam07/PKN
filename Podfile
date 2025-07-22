@@ -14,7 +14,7 @@ target 'PKN' do
 
   target 'PKNUITests' do
     # Pods for testing
-    pod 'ViewInspector', '~> 0.9.11'  # Updated to latest stable version
+   # pod 'ViewInspector', '~> 0.9.11'  # Updated to latest stable version
   end
 
 end

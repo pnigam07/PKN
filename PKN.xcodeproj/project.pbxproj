@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1912DDBC2E2F43FC005E8476 /* MemberListViewComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1912DDBB2E2F43FC005E8476 /* MemberListViewComponentTests.swift */; };
+		1965C4F32E2F4D7F004223C0 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 1965C4F22E2F4D7F004223C0 /* ViewInspector */; };
 		19CF6F8D2E2EBFCB0059D20A /* PKNApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF6F8C2E2EBFCB0059D20A /* PKNApp.swift */; };
 		19CF6F8F2E2EBFCB0059D20A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF6F8E2E2EBFCB0059D20A /* ContentView.swift */; };
 		19CF6F912E2EBFCC0059D20A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19CF6F902E2EBFCC0059D20A /* Assets.xcassets */; };
@@ -90,6 +91,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				99A4C1C5BFC14EE4A457F130 /* Pods_PKN_PKNUITests.framework in Frameworks */,
+				1965C4F32E2F4D7F004223C0 /* ViewInspector in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,7 +232,6 @@
 				19CF6F9F2E2EBFCC0059D20A /* Sources */,
 				19CF6FA02E2EBFCC0059D20A /* Frameworks */,
 				19CF6FA12E2EBFCC0059D20A /* Resources */,
-				A7FEB2B84FC754E5E926BD91 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -274,6 +275,9 @@
 				Base,
 			);
 			mainGroup = 19CF6F802E2EBFCB0059D20A;
+			packageReferences = (
+				1965C4F12E2F4D7F004223C0 /* XCRemoteSwiftPackageReference "ViewInspector" */,
+			);
 			productRefGroup = 19CF6F8A2E2EBFCB0059D20A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -354,27 +358,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A7FEB2B84FC754E5E926BD91 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PKN-PKNUITests/Pods-PKN-PKNUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PKN-PKNUITests/Pods-PKN-PKNUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PKN-PKNUITests/Pods-PKN-PKNUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DB2727C59027B610E08A1C1B /* [CP] Check Pods Manifest.lock */ = {
@@ -748,6 +731,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1965C4F12E2F4D7F004223C0 /* XCRemoteSwiftPackageReference "ViewInspector" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nalexn/ViewInspector";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1965C4F22E2F4D7F004223C0 /* ViewInspector */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1965C4F12E2F4D7F004223C0 /* XCRemoteSwiftPackageReference "ViewInspector" */;
+			productName = ViewInspector;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 19CF6F812E2EBFCB0059D20A /* Project object */;
 }

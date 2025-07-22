@@ -7,7 +7,8 @@
 
 import XCTest
 import SwiftUI
-import ViewInspector
+//import ViewInspector
+@testable import PKN
 
 final class MemberListViewTests: XCTestCase {
 
@@ -19,303 +20,262 @@ final class MemberListViewTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    // MARK: - ViewInspector Tests for Complex SwiftUI Views
+    // MARK: - MemberListView Integration Tests
     
-    func testComplexViewStructure() throws {
-        let complexView = VStack {
-            HStack {
-                Text("Title")
-                    .font(.title)
-                Spacer()
-                Button("Action") {
-                    // Action
-                }
-            }
-            .padding()
-            
-            List {
-                ForEach(1...5, id: \.self) { index in
-                    HStack {
-                        Text("Item \(index)")
-                        Spacer()
-                        Text("Detail \(index)")
-                            .foregroundColor(.secondary)
-                    }
-                }
-            }
-        }
+    func testMemberListViewWithMultipleMembers() throws {
+        let multipleMembers = [
+            Member(id: 1, name: "Alice Johnson"),
+            Member(id: 2, name: "Bob Smith"),
+            Member(id: 3, name: "Charlie Brown"),
+            Member(id: 4, name: "Diana Prince")
+        ]
+        let viewModel = MemberListViewModel(members: multipleMembers)
+        let memberListView = MemberListView(viewModel: viewModel)
         
-        let view = try complexView.inspect()
-        XCTAssertNotNil(view)
-        
-        // Test finding title
-        let titleText = try view.find(text: "Title")
-        XCTAssertNotNil(titleText)
-        
-        // Test finding button
-        let buttonText = try view.find(text: "Action")
-        XCTAssertNotNil(buttonText)
-        
-        // Test finding list items
-        let item1Text = try view.find(text: "Item 1")
-        XCTAssertNotNil(item1Text)
-        
-        let item5Text = try view.find(text: "Item 5")
-        XCTAssertNotNil(item5Text)
+        XCTAssertNotNil(memberListView)
+        XCTAssertEqual(memberListView.testViewModel.members.count, 4)
+        XCTAssertEqual(memberListView.testViewModel.members[0].name, "Alice Johnson")
+        XCTAssertEqual(memberListView.testViewModel.members[1].name, "Bob Smith")
     }
     
-    func testNavigationViewWithList() throws {
-        let navigationView = NavigationView {
-            List {
-                Text("First Item")
-                Text("Second Item")
-                Text("Third Item")
-            }
-            .navigationTitle("Test List")
-        }
+    func testMemberListViewWithEmptyMembers() throws {
+        let emptyMembers: [Member] = []
+        let viewModel = MemberListViewModel(members: emptyMembers)
+        let memberListView = MemberListView(viewModel: viewModel)
         
-        let view = try navigationView.inspect()
-        XCTAssertNotNil(view)
-        
-        // Test finding navigation title
-        let titleText = try view.find(text: "Test List")
-        XCTAssertNotNil(titleText)
-        
-        // Test finding list items
-        let firstItem = try view.find(text: "First Item")
-        XCTAssertNotNil(firstItem)
-        
-        let secondItem = try view.find(text: "Second Item")
-        XCTAssertNotNil(secondItem)
-        
-        let thirdItem = try view.find(text: "Third Item")
-        XCTAssertNotNil(thirdItem)
+        XCTAssertNotNil(memberListView)
+        // Should use sample members when empty
+        XCTAssertEqual(memberListView.testViewModel.members.count, 4)
     }
     
-    func testViewWithModifiers() throws {
-        let styledView = VStack {
-            Text("Primary Text")
-                .font(.headline)
-                .foregroundColor(.blue)
-                .padding()
-            
-            Text("Secondary Text")
-                .font(.body)
-                .foregroundColor(.secondary)
-                .padding(.horizontal)
-        }
-        .background(Color.gray.opacity(0.1))
-        .cornerRadius(8)
+    func testMemberListViewWithLongNames() throws {
+        let longNameMembers = [
+            Member(id: 1, name: "Very Long Name That Exceeds Normal Length"),
+            Member(id: 2, name: "Another Very Long Name With Multiple Words")
+        ]
+        let viewModel = MemberListViewModel(members: longNameMembers)
+        let memberListView = MemberListView(viewModel: viewModel)
         
-        let view = try styledView.inspect()
-        XCTAssertNotNil(view)
-        
-        // Test finding text elements
-        let primaryText = try view.find(text: "Primary Text")
-        XCTAssertNotNil(primaryText)
-        
-        let secondaryText = try view.find(text: "Secondary Text")
-        XCTAssertNotNil(secondaryText)
+        XCTAssertNotNil(memberListView)
+        XCTAssertEqual(memberListView.testViewModel.members.count, 2)
+        XCTAssertEqual(memberListView.testViewModel.members[0].name, "Very Long Name That Exceeds Normal Length")
     }
     
-    func testViewWithConditionalContent() throws {
-        let showDetails = true
-        let conditionalView = VStack {
-            Text("Always Visible")
-            
-            if showDetails {
-                Text("Details Visible")
-                Text("More Details")
-            } else {
-                Text("Details Hidden")
-            }
-        }
+    func testMemberListViewWithSpecialCharacters() throws {
+        let specialCharMembers = [
+            Member(id: 1, name: "José María"),
+            Member(id: 2, name: "Jean-Pierre"),
+            Member(id: 3, name: "O'Connor")
+        ]
+        let viewModel = MemberListViewModel(members: specialCharMembers)
+        let memberListView = MemberListView(viewModel: viewModel)
         
-        let view = try conditionalView.inspect()
-        XCTAssertNotNil(view)
-        
-        // Test finding always visible text
-        let alwaysVisible = try view.find(text: "Always Visible")
-        XCTAssertNotNil(alwaysVisible)
-        
-        // Test finding conditional text
-        let detailsVisible = try view.find(text: "Details Visible")
-        XCTAssertNotNil(detailsVisible)
-        
-        let moreDetails = try view.find(text: "More Details")
-        XCTAssertNotNil(moreDetails)
+        XCTAssertNotNil(memberListView)
+        XCTAssertEqual(memberListView.testViewModel.members.count, 3)
     }
     
-    func testViewWithButtons() throws {
-        let buttonView = VStack {
-            Button("Primary Action") {
-                // Primary action
-            }
-            .buttonStyle(.borderedProminent)
-            
-            Button("Secondary Action") {
-                // Secondary action
-            }
-            .buttonStyle(.bordered)
-            
-            Button("Destructive Action") {
-                // Destructive action
-            }
-            .foregroundColor(.red)
-        }
+    func testMemberListViewWithUnicodeNames() throws {
+        let unicodeMembers = [
+            Member(id: 1, name: "José María García"),
+            Member(id: 2, name: "François Dupont"),
+            Member(id: 3, name: "Björk Guðmundsdóttir")
+        ]
+        let viewModel = MemberListViewModel(members: unicodeMembers)
+        let memberListView = MemberListView(viewModel: viewModel)
         
-        let view = try buttonView.inspect()
-        XCTAssertNotNil(view)
-        
-        // Test finding button texts
-        let primaryButton = try view.find(text: "Primary Action")
-        XCTAssertNotNil(primaryButton)
-        
-        let secondaryButton = try view.find(text: "Secondary Action")
-        XCTAssertNotNil(secondaryButton)
-        
-        let destructiveButton = try view.find(text: "Destructive Action")
-        XCTAssertNotNil(destructiveButton)
+        XCTAssertNotNil(memberListView)
+        XCTAssertEqual(memberListView.testViewModel.members.count, 3)
     }
     
-    func testViewWithScrollView() throws {
-        let scrollView = ScrollView {
-            VStack(spacing: 20) {
-                ForEach(1...10, id: \.self) { index in
-                    Text("Scroll Item \(index)")
-                        .padding()
-                        .background(Color.blue.opacity(0.1))
-                        .cornerRadius(8)
-                }
-            }
-            .padding()
-        }
+    func testMemberListViewWithEmptyNames() throws {
+        let emptyNameMembers = [
+            Member(id: 1, name: ""),
+            Member(id: 2, name: "John Doe")
+        ]
+        let viewModel = MemberListViewModel(members: emptyNameMembers)
+        let memberListView = MemberListView(viewModel: viewModel)
         
-        let view = try scrollView.inspect()
-        XCTAssertNotNil(view)
-        
-        // Test finding scroll items
-        let firstItem = try view.find(text: "Scroll Item 1")
-        XCTAssertNotNil(firstItem)
-        
-        let lastItem = try view.find(text: "Scroll Item 10")
-        XCTAssertNotNil(lastItem)
+        XCTAssertNotNil(memberListView)
+        XCTAssertEqual(memberListView.testViewModel.members.count, 2)
+        XCTAssertEqual(memberListView.testViewModel.members[0].name, "")
     }
     
-    func testViewWithForm() throws {
-        let formView = Form {
-            Section("Personal Information") {
-                Text("Name: John Doe")
-                Text("Email: john@example.com")
-                Text("Phone: +1-555-0123")
-            }
-            
-            Section("Preferences") {
-                Text("Theme: Dark")
-                Text("Notifications: Enabled")
-                Text("Language: English")
-            }
-        }
+    func testMemberListViewWithInvalidData() throws {
+        let invalidMembers = [
+            Member(id: -1, name: "Invalid Member"),
+            Member(id: 0, name: "Zero ID Member")
+        ]
+        let viewModel = MemberListViewModel(members: invalidMembers)
+        let memberListView = MemberListView(viewModel: viewModel)
         
-        let view = try formView.inspect()
-        XCTAssertNotNil(view)
-        
-        // Test finding form content
-        let nameText = try view.find(text: "Name: John Doe")
-        XCTAssertNotNil(nameText)
-        
-        let emailText = try view.find(text: "Email: john@example.com")
-        XCTAssertNotNil(emailText)
-        
-        let themeText = try view.find(text: "Theme: Dark")
-        XCTAssertNotNil(themeText)
+        XCTAssertNotNil(memberListView)
+        XCTAssertEqual(memberListView.testViewModel.members.count, 2)
+        XCTAssertEqual(memberListView.testViewModel.members[0].id, -1)
     }
     
-    func testViewWithTabView() throws {
-        let tabView = TabView {
-            VStack {
-                Text("First Tab")
-                Text("Content for first tab")
-            }
-            .tabItem {
-                Text("First")
-            }
-            
-            VStack {
-                Text("Second Tab")
-                Text("Content for second tab")
-            }
-            .tabItem {
-                Text("Second")
-            }
-        }
+    // MARK: - MemberListView Callback Tests
+    
+    func testMemberListViewOnCloseCallback() throws {
+        var closeCallbackCalled = false
+        let memberListView = MemberListView(onClose: {
+            closeCallbackCalled = true
+        })
         
-        let view = try tabView.inspect()
-        XCTAssertNotNil(view)
-        
-        // Test finding tab content
-        let firstTab = try view.find(text: "First Tab")
-        XCTAssertNotNil(firstTab)
-        
-        let secondTab = try view.find(text: "Second Tab")
-        XCTAssertNotNil(secondTab)
+        XCTAssertNotNil(memberListView)
+        XCTAssertNotNil(memberListView.onClose)
+        // Note: In a real UI test, you would trigger the close action
+        XCTAssertFalse(closeCallbackCalled)
     }
     
-    func testViewWithGeometryReader() throws {
-        let geometryView = GeometryReader { geometry in
-            VStack {
-                Text("Width: \(Int(geometry.size.width))")
-                Text("Height: \(Int(geometry.size.height))")
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
+    func testMemberListViewOnMemberSelectedCallback() throws {
+        var selectedMember: Member?
+        let memberListView = MemberListView(onMemberSelected: { member in
+            selectedMember = member
+        })
         
-        let view = try geometryView.inspect()
-        XCTAssertNotNil(view)
-        
-        // Note: GeometryReader content is dynamic, so we just verify the view exists
+        XCTAssertNotNil(memberListView)
+        XCTAssertNotNil(memberListView.onMemberSelected)
+        XCTAssertNil(selectedMember) // Should be nil initially
     }
     
-    func testViewWithLazyVStack() throws {
-        let lazyView = LazyVStack {
-            ForEach(1...20, id: \.self) { index in
-                Text("Lazy Item \(index)")
-                    .padding()
-                    .background(Color.green.opacity(0.1))
-            }
-        }
+    func testMemberListViewWithBothCallbacks() throws {
+        var closeCalled = false
+        var selectedMember: Member?
         
-        let view = try lazyView.inspect()
-        XCTAssertNotNil(view)
+        let memberListView = MemberListView(
+            onClose: { closeCalled = true },
+            onMemberSelected: { member in selectedMember = member }
+        )
         
-        // Test finding some lazy items
-        let firstItem = try view.find(text: "Lazy Item 1")
-        XCTAssertNotNil(firstItem)
-        
-        let lastItem = try view.find(text: "Lazy Item 20")
-        XCTAssertNotNil(lastItem)
+        XCTAssertNotNil(memberListView)
+        XCTAssertNotNil(memberListView.onClose)
+        XCTAssertNotNil(memberListView.onMemberSelected)
+        XCTAssertFalse(closeCalled)
+        XCTAssertNil(selectedMember)
     }
     
-    func testViewWithCustomModifiers() throws {
-        let customView = Text("Custom Text")
-            .font(.system(size: 18, weight: .semibold))
-            .foregroundColor(.purple)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 8)
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.purple.opacity(0.1))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.purple, lineWidth: 2)
-            )
+    // MARK: - MemberListView ViewModel Integration Tests
+    
+    func testMemberListViewViewModelSelection() throws {
+        let members = [
+            Member(id: 1, name: "Alice"),
+            Member(id: 2, name: "Bob"),
+            Member(id: 3, name: "Charlie")
+        ]
+        let viewModel = MemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
         
-        let view = try customView.inspect()
-        XCTAssertNotNil(view)
+        XCTAssertNotNil(memberListView)
+        XCTAssertNil(memberListView.testViewModel.selectedMemberID)
         
-        // Test finding the text
-        let textElement = try view.find(text: "Custom Text")
-        XCTAssertNotNil(textElement)
+        // Test selection
+        let firstMember = memberListView.testViewModel.members[0]
+        memberListView.testViewModel.selectMember(firstMember)
+        XCTAssertEqual(memberListView.testViewModel.selectedMemberID, 1)
+        XCTAssertTrue(memberListView.testViewModel.isSelected(firstMember))
+        
+        // Test clearing selection
+        memberListView.testViewModel.clearSelection()
+        XCTAssertNil(memberListView.testViewModel.selectedMemberID)
+        XCTAssertFalse(memberListView.testViewModel.isSelected(firstMember))
+    }
+    
+    func testMemberListViewViewModelMultipleSelections() throws {
+        let members = [
+            Member(id: 1, name: "Alice"),
+            Member(id: 2, name: "Bob"),
+            Member(id: 3, name: "Charlie")
+        ]
+        let viewModel = MemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        XCTAssertNotNil(memberListView)
+        
+        // Test selecting different members
+        let firstMember = memberListView.testViewModel.members[0]
+        let secondMember = memberListView.testViewModel.members[1]
+        
+        memberListView.testViewModel.selectMember(firstMember)
+        XCTAssertEqual(memberListView.testViewModel.selectedMemberID, 1)
+        XCTAssertTrue(memberListView.testViewModel.isSelected(firstMember))
+        XCTAssertFalse(memberListView.testViewModel.isSelected(secondMember))
+        
+        memberListView.testViewModel.selectMember(secondMember)
+        XCTAssertEqual(memberListView.testViewModel.selectedMemberID, 2)
+        XCTAssertFalse(memberListView.testViewModel.isSelected(firstMember))
+        XCTAssertTrue(memberListView.testViewModel.isSelected(secondMember))
+    }
+    
+    // MARK: - MemberListView Performance Tests
+    
+    func testMemberListViewWithLargeDataset() throws {
+        let largeMembers = (1...100).map { index in
+            Member(id: index, name: "Member \(index)")
+        }
+        let viewModel = MemberListViewModel(members: largeMembers)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        XCTAssertNotNil(memberListView)
+        XCTAssertEqual(memberListView.testViewModel.members.count, 100)
+        
+        // Test performance of selection
+        let startTime = CFAbsoluteTimeGetCurrent()
+        let firstMember = memberListView.testViewModel.members[0]
+        memberListView.testViewModel.selectMember(firstMember)
+        let endTime = CFAbsoluteTimeGetCurrent()
+        
+        XCTAssertEqual(memberListView.testViewModel.selectedMemberID, 1)
+        XCTAssertLessThan(endTime - startTime, 0.1) // Should be very fast
+    }
+    
+    // MARK: - MemberListView Edge Cases
+    
+    func testMemberListViewWithDuplicateIDs() throws {
+        let duplicateMembers = [
+            Member(id: 1, name: "First"),
+            Member(id: 1, name: "Second"), // Duplicate ID
+            Member(id: 2, name: "Third")
+        ]
+        let viewModel = MemberListViewModel(members: duplicateMembers)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        XCTAssertNotNil(memberListView)
+        XCTAssertEqual(memberListView.testViewModel.members.count, 3)
+        
+        // Test that selection works with duplicates
+        let firstMember = memberListView.testViewModel.members[0]
+        memberListView.testViewModel.selectMember(firstMember)
+        XCTAssertEqual(memberListView.testViewModel.selectedMemberID, 1)
+    }
+    
+    func testMemberListViewWithNegativeIDs() throws {
+        let negativeMembers = [
+            Member(id: -1, name: "Negative"),
+            Member(id: -2, name: "Another Negative")
+        ]
+        let viewModel = MemberListViewModel(members: negativeMembers)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        XCTAssertNotNil(memberListView)
+        XCTAssertEqual(memberListView.testViewModel.members.count, 2)
+        
+        // Test selection with negative IDs
+        let firstMember = memberListView.testViewModel.members[0]
+        memberListView.testViewModel.selectMember(firstMember)
+        XCTAssertEqual(memberListView.testViewModel.selectedMemberID, -1)
+    }
+    
+    func testMemberListViewWithZeroID() throws {
+        let zeroMember = Member(id: 0, name: "Zero ID")
+        let viewModel = MemberListViewModel(members: [zeroMember])
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        XCTAssertNotNil(memberListView)
+        XCTAssertEqual(memberListView.testViewModel.members.count, 1)
+        
+        // Test selection with zero ID
+        let member = memberListView.testViewModel.members[0]
+        memberListView.testViewModel.selectMember(member)
+        XCTAssertEqual(memberListView.testViewModel.selectedMemberID, 0)
     }
 } 

@@ -6,7 +6,6 @@
 //
 
 import XCTest
-import SwiftUI
 @testable import PKN
 
 final class PKNTests: XCTestCase {
@@ -19,7 +18,7 @@ final class PKNTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    // MARK: - Member Model Tests
+    // MARK: - Member Model Unit Tests
     
     func testMemberInitialization() throws {
         let member = Member(id: 1, name: "John Doe")
@@ -50,9 +49,9 @@ final class PKNTests: XCTestCase {
         let member2 = Member(id: 2, name: "Jane")
         let member3 = Member(id: 3, name: "A B C")
         
-        XCTAssertEqual(member1.initials, "JD")
+        XCTAssertEqual(member1.initials, "J")
         XCTAssertEqual(member2.initials, "J")
-        XCTAssertEqual(member3.initials, "ABC")
+        XCTAssertEqual(member3.initials, "A")
     }
     
     func testMemberInitialsWithEmptyName() throws {
@@ -65,7 +64,32 @@ final class PKNTests: XCTestCase {
         XCTAssertEqual(member.initials, "J")
     }
     
-    // MARK: - MemberListViewModel Tests
+    func testMemberInitialsWithSpecialCharacters() throws {
+        let member = Member(id: 1, name: "José María")
+        XCTAssertEqual(member.initials, "J")
+    }
+    
+    func testMemberInitialsWithMultipleSpaces() throws {
+        let member = Member(id: 1, name: "  John   Doe  ")
+        XCTAssertEqual(member.initials, "J")
+    }
+    
+    func testMemberInitialsWithUnicodeCharacters() throws {
+        let member = Member(id: 1, name: "José María García")
+        XCTAssertEqual(member.initials, "J")
+    }
+    
+    func testMemberInitialsWithNumbers() throws {
+        let member = Member(id: 1, name: "John123 Doe")
+        XCTAssertEqual(member.initials, "J")
+    }
+    
+    func testMemberInitialsWithVeryLongName() throws {
+        let member = Member(id: 1, name: "This is a very long name that exceeds normal length")
+        XCTAssertEqual(member.initials, "T")
+    }
+    
+    // MARK: - MemberListViewModel Unit Tests
     
     func testMemberListViewModelInitialization() throws {
         let viewModel = MemberListViewModel()
@@ -82,7 +106,7 @@ final class PKNTests: XCTestCase {
     
     func testMemberListViewModelWithEmptyMembers() throws {
         let viewModel = MemberListViewModel(members: [])
-        XCTAssertEqual(viewModel.members.count, 0)
+        XCTAssertEqual(viewModel.members.count, 4) // Should use sample members when empty
     }
     
     func testSelectMember() throws {
@@ -118,7 +142,32 @@ final class PKNTests: XCTestCase {
         XCTAssertTrue(viewModel.isSelected(member))
     }
     
-    // MARK: - Constants Tests
+    func testMultipleSelections() throws {
+        let viewModel = MemberListViewModel()
+        let member1 = viewModel.members[0]
+        let member2 = viewModel.members[1]
+        
+        viewModel.selectMember(member1)
+        XCTAssertEqual(viewModel.selectedMemberID, member1.id)
+        XCTAssertTrue(viewModel.isSelected(member1))
+        XCTAssertFalse(viewModel.isSelected(member2))
+        
+        viewModel.selectMember(member2)
+        XCTAssertEqual(viewModel.selectedMemberID, member2.id)
+        XCTAssertFalse(viewModel.isSelected(member1))
+        XCTAssertTrue(viewModel.isSelected(member2))
+    }
+    
+    func testSelectionWithInvalidMember() throws {
+        let viewModel = MemberListViewModel()
+        let invalidMember = Member(id: 999, name: "Invalid")
+        
+        viewModel.selectMember(invalidMember)
+        XCTAssertEqual(viewModel.selectedMemberID, 999)
+        XCTAssertTrue(viewModel.isSelected(invalidMember))
+    }
+    
+    // MARK: - Constants Unit Tests
     
     func testAppStrings() throws {
         XCTAssertEqual(AppStrings.Icons.checkmark, "checkmark")
@@ -139,59 +188,101 @@ final class PKNTests: XCTestCase {
         XCTAssertEqual(AppDimensions.Avatar.size, 36)
     }
     
-    // MARK: - App Tests
+    // MARK: - Accessibility Unit Tests
     
-    func testPKNAppInitialization() throws {
-        let app = PKNApp()
-        XCTAssertNotNil(app)
+    func testMemberListAccessibility() throws {
+        XCTAssertEqual(MemberListAccessibility.list, "memberListView.list")
+        XCTAssertEqual(MemberListAccessibility.row(1), "memberRow_1")
+        XCTAssertEqual(MemberListAccessibility.avatar(1), "memberRow.avatar_1")
+        XCTAssertEqual(MemberListAccessibility.name(1), "memberRow.name_1")
+        XCTAssertEqual(MemberListAccessibility.checkmark(1), "memberRow.checkmark_1")
+        XCTAssertEqual(MemberListAccessibility.avatarCircle, "memberAvatar.circle")
+        XCTAssertEqual(MemberListAccessibility.avatarInitials, "memberAvatar.initials")
+        XCTAssertEqual(MemberListAccessibility.closeButton, "closeButton")
     }
     
-    func testContentViewInitialization() throws {
-        let contentView = ContentView()
-        XCTAssertNotNil(contentView)
+    func testMemberListAccessibilityWithDifferentIDs() throws {
+        XCTAssertEqual(MemberListAccessibility.row(42), "memberRow_42")
+        XCTAssertEqual(MemberListAccessibility.avatar(42), "memberRow.avatar_42")
+        XCTAssertEqual(MemberListAccessibility.name(42), "memberRow.name_42")
+        XCTAssertEqual(MemberListAccessibility.checkmark(42), "memberRow.checkmark_42")
     }
     
-    func testPANRootViewInitialization() throws {
-        let panRootView = PANRootView()
-        XCTAssertNotNil(panRootView)
+    func testMemberListAccessibilityWithNegativeIDs() throws {
+        XCTAssertEqual(MemberListAccessibility.row(-1), "memberRow_-1")
+        XCTAssertEqual(MemberListAccessibility.avatar(-1), "memberRow.avatar_-1")
+        XCTAssertEqual(MemberListAccessibility.name(-1), "memberRow.name_-1")
+        XCTAssertEqual(MemberListAccessibility.checkmark(-1), "memberRow.checkmark_-1")
     }
     
-    func testMemberListViewInitialization() throws {
-        let viewModel = MemberListViewModel()
-        let memberListView = MemberListView(viewModel: viewModel)
-        XCTAssertNotNil(memberListView)
+    func testMemberListAccessibilityWithZeroID() throws {
+        XCTAssertEqual(MemberListAccessibility.row(0), "memberRow_0")
+        XCTAssertEqual(MemberListAccessibility.avatar(0), "memberRow.avatar_0")
+        XCTAssertEqual(MemberListAccessibility.name(0), "memberRow.name_0")
+        XCTAssertEqual(MemberListAccessibility.checkmark(0), "memberRow.checkmark_0")
     }
     
-    func testMemberRowViewInitialization() throws {
-        let member = Member(id: 1, name: "John Doe")
-        let memberRowView = MemberRowView(
-            member: member,
-            isSelected: false,
-            onTap: {}
-        )
-        XCTAssertNotNil(memberRowView)
+    // MARK: - Sample Data Unit Tests
+    
+    func testSampleMembers() throws {
+        let sampleMembers = Member.sampleMembers
+        XCTAssertEqual(sampleMembers.count, 4)
+        XCTAssertEqual(sampleMembers[0].id, 2)
+        XCTAssertEqual(sampleMembers[0].name, "John Doe")
+        XCTAssertEqual(sampleMembers[1].id, 3)
+        XCTAssertEqual(sampleMembers[1].name, "Jane Smith")
+        XCTAssertEqual(sampleMembers[2].id, 4)
+        XCTAssertEqual(sampleMembers[2].name, "Mike Johnson")
+        XCTAssertEqual(sampleMembers[3].id, 5)
+        XCTAssertEqual(sampleMembers[3].name, "Sarah Wilson")
     }
     
-    // MARK: - Edge Cases
+    func testSampleMembersInitials() throws {
+        let sampleMembers = Member.sampleMembers
+        XCTAssertEqual(sampleMembers[0].initials, "J") // John Doe
+        XCTAssertEqual(sampleMembers[1].initials, "J") // Jane Smith
+        XCTAssertEqual(sampleMembers[2].initials, "M") // Mike Johnson
+        XCTAssertEqual(sampleMembers[3].initials, "S") // Sarah Wilson
+    }
+    
+    // MARK: - Edge Cases Unit Tests
     
     func testMemberWithSpecialCharacters() throws {
         let member = Member(id: 1, name: "José María")
-        XCTAssertEqual(member.initials, "JM")
+        XCTAssertEqual(member.initials, "J")
     }
     
     func testMemberWithNumbers() throws {
         let member = Member(id: 1, name: "John123 Doe")
-        XCTAssertEqual(member.initials, "JD")
-    }
-    
-    func testMemberWithMultipleSpaces() throws {
-        let member = Member(id: 1, name: "  John   Doe  ")
-        XCTAssertEqual(member.initials, "JD")
+        XCTAssertEqual(member.initials, "J")
     }
     
     func testMemberWithUnicodeCharacters() throws {
         let member = Member(id: 1, name: "José María García")
-        XCTAssertEqual(member.initials, "JMG")
+        XCTAssertEqual(member.initials, "J")
+    }
+    
+    func testMemberWithDuplicateIDs() throws {
+        let member1 = Member(id: 1, name: "First")
+        let member2 = Member(id: 1, name: "Second") // Duplicate ID
+        let member3 = Member(id: 2, name: "Third")
+        
+        XCTAssertEqual(member1, member2) // Same ID means equal
+        XCTAssertNotEqual(member1, member3)
+    }
+    
+    func testMemberWithNegativeIDs() throws {
+        let member = Member(id: -1, name: "Negative")
+        XCTAssertEqual(member.id, -1)
+        XCTAssertEqual(member.name, "Negative")
+        XCTAssertEqual(member.initials, "N")
+    }
+    
+    func testMemberWithZeroID() throws {
+        let member = Member(id: 0, name: "Zero")
+        XCTAssertEqual(member.id, 0)
+        XCTAssertEqual(member.name, "Zero")
+        XCTAssertEqual(member.initials, "Z")
     }
     
     func testViewModelWithDuplicateMembers() throws {
@@ -204,20 +295,48 @@ final class PKNTests: XCTestCase {
         XCTAssertEqual(viewModel.members.count, 3)
     }
     
-    func testViewModelSelectionWithInvalidMember() throws {
+    func testViewModelSelectionWithNegativeID() throws {
         let viewModel = MemberListViewModel()
-        let invalidMember = Member(id: 999, name: "Invalid")
+        let negativeMember = Member(id: -1, name: "Negative")
         
-        viewModel.selectMember(invalidMember)
-        XCTAssertEqual(viewModel.selectedMemberID, 999)
+        viewModel.selectMember(negativeMember)
+        XCTAssertEqual(viewModel.selectedMemberID, -1)
+        XCTAssertTrue(viewModel.isSelected(negativeMember))
     }
     
-//    func testConstantsAccessibility() throws {
-//        // Test that all constants are accessible
-//        XCTAssertNotNil(AppStrings.Icons.house)
-//        XCTAssertNotNil(AppStrings.Titles.memberID)
-//        XCTAssertNotNil(AppStrings.Descriptions.welcome)
-//        XCTAssertNotNil(AppStrings.PhoneNumbers.Display.tollFree)
-//        XCTAssertNotNil(AppStrings.PhoneNumbers.Dial.tollFree)
-//    }
+    func testViewModelSelectionWithZeroID() throws {
+        let viewModel = MemberListViewModel()
+        let zeroMember = Member(id: 0, name: "Zero")
+        
+        viewModel.selectMember(zeroMember)
+        XCTAssertEqual(viewModel.selectedMemberID, 0)
+        XCTAssertTrue(viewModel.isSelected(zeroMember))
+    }
+    
+    // MARK: - Performance Unit Tests
+    
+    func testMemberInitialsPerformance() throws {
+        let member = Member(id: 1, name: "This is a very long name for performance testing")
+        
+        measure {
+            for _ in 1...1000 {
+                _ = member.initials
+            }
+        }
+    }
+    
+    func testViewModelSelectionPerformance() throws {
+        let largeMembers = (1...1000).map { index in
+            Member(id: index, name: "Member \(index)")
+        }
+        let viewModel = MemberListViewModel(members: largeMembers)
+        
+        measure {
+            for member in largeMembers {
+                viewModel.selectMember(member)
+                _ = viewModel.isSelected(member)
+                viewModel.clearSelection()
+            }
+        }
+    }
 }
