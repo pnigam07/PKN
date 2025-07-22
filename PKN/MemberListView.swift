@@ -1,66 +1,66 @@
 import SwiftUI
 
 // MARK: - Member Model
-struct Member: Identifiable, Equatable, Hashable, Codable {
-    let id: Int
-    let name: String
+public struct DMCMember: Identifiable, Equatable, Hashable, Codable {
+    public let id: Int
+    public let name: String
     
-    var initials: String {
-        let components = name.components(separatedBy: " ")
+    public var avatarInitial: String {
+        let trimiiedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        return components.first?.prefix(1).uppercased() ?? String(name.prefix(1)).uppercased()
+        return trimiiedName.isEmpty ? "" : String(trimiiedName.prefix(1).uppercased())
     }
     
-    static let sampleMembers = [
-        Member(id: 2, name: "John Doe"),
-        Member(id: 3, name: "Jane Smith"),
-        Member(id: 4, name: "Mike Johnson"),
-        Member(id: 5, name: "Sarah Wilson")
+    public static let sampleMembers = [
+        DMCMember(id: 2, name: "John Doe"),
+        DMCMember(id: 3, name: "Jane Smith"),
+        DMCMember(id: 4, name: "Mike Johnson"),
+        DMCMember(id: 5, name: "Sarah Wilson")
     ]
 }
 
 // MARK: - Member List View Model
-final class MemberListViewModel: ObservableObject {
-    @Published var selectedMemberID: Int?
+public final class DMCMemberListViewModel: ObservableObject {
+    @Published public var selectedMemberID: Int?
     
-    let members: [Member]
+    public let members: [DMCMember]
     
-    init(members: [Member] = []) {
-        self.members = members.isEmpty ? Member.sampleMembers : members
+    public init(members: [DMCMember] = []) {
+        self.members = members.isEmpty ? DMCMember.sampleMembers : members
     }
     
-    func selectMember(_ member: Member) { selectedMemberID = member.id }
-    func isSelected(_ member: Member) -> Bool { selectedMemberID == member.id }
-    func clearSelection() { selectedMemberID = nil }
+    public func selectMember(_ member: DMCMember) { selectedMemberID = member.id }
+    public func isSelected(_ member: DMCMember) -> Bool { selectedMemberID == member.id }
+    public func clearSelection() { selectedMemberID = nil }
 }
 
 // MARK: - Accessibility
-struct MemberListAccessibility {
-    static let list = "memberListView.list"
-    static func row(_ id: Int) -> String { "memberRow_\(id)" }
-    static func avatar(_ id: Int) -> String { "memberRow.avatar_\(id)" }
-    static func name(_ id: Int) -> String { "memberRow.name_\(id)" }
-    static func checkmark(_ id: Int) -> String { "memberRow.checkmark_\(id)" }
-    static let avatarCircle = "memberAvatar.circle"
-    static let avatarInitials = "memberAvatar.initials"
-    static let closeButton = "closeButton"
+public struct MemberListAccessibility {
+    public static let list = "memberListView.list"
+    public static func row(_ id: Int) -> String { "memberRow_\(id)" }
+    public static func avatar(_ id: Int) -> String { "memberRow.avatar_\(id)" }
+    public static func name(_ id: Int) -> String { "memberRow.name_\(id)" }
+    public static func checkmark(_ id: Int) -> String { "memberRow.checkmark_\(id)" }
+    public static let avatarCircle = "memberAvatar.circle"
+    public static let avatarInitials = "memberAvatar.initials"
+    public static let closeButton = "closeButton"
 }
 
-struct MemberListView: View {
-    @StateObject var viewModel: MemberListViewModel
+public struct MemberListView: View {
+    @StateObject var viewModel: DMCMemberListViewModel
     let onClose: (() -> Void)?
-    let onMemberSelected: ((Member) -> Void)?
+    let onMemberSelected: ((DMCMember) -> Void)?
     
-    init(viewModel: MemberListViewModel = MemberListViewModel(), onClose: (() -> Void)? = nil, onMemberSelected: ((Member) -> Void)? = nil) {
+    public init(viewModel: DMCMemberListViewModel = DMCMemberListViewModel(), onClose: (() -> Void)? = nil, onMemberSelected: ((DMCMember) -> Void)? = nil) {
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.onClose = onClose
         self.onMemberSelected = onMemberSelected
     }
     
     // Expose viewModel for testing
-    var testViewModel: MemberListViewModel { viewModel }
+    public var testViewModel: DMCMemberListViewModel { viewModel }
     
-    var body: some View {
+    public var body: some View {
         NavigationView {
             memberListContent
                 .navigationBarTitleDisplayMode(.inline)
@@ -85,7 +85,7 @@ struct MemberListView: View {
         .listStyle(PlainListStyle())
         .frame(maxWidth: .infinity)
         .navigationTitle(AppStrings.Titles.selectMember)
-        .toolbarBackground(AppColors.navigationBar, for: .navigationBar)
+        .toolbarBackground(.red, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .accessibilityIdentifier(MemberListAccessibility.list)
     }
@@ -103,20 +103,20 @@ struct MemberListView: View {
 
 
 // MARK: - Member Avatar View
-struct MemberAvatarView: View {
+public struct DMCMemberAvatarView: View {
     let initials: String
     let size: CGFloat
     let backgroundColor: Color
     let textColor: Color
     
-    init(initials: String, size: CGFloat = AppDimensions.Avatar.size, backgroundColor: Color = AppColors.avatarBackground, textColor: Color = AppColors.primary) {
+    public init(initials: String, size: CGFloat = AppDimensions.Avatar.size, backgroundColor: Color = AppColors.avatarBackground, textColor: Color = AppColors.primary) {
         self.initials = initials
         self.size = size
         self.backgroundColor = backgroundColor
         self.textColor = textColor
     }
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             Circle()
                 .fill(backgroundColor)
@@ -135,14 +135,14 @@ struct MemberAvatarView: View {
 
 
 // MARK: - Close Button
-struct CloseButton: View {
+public struct CloseButton: View {
     let action: () -> Void
     
-    init(action: @escaping () -> Void) {
+    public init(action: @escaping () -> Void) {
         self.action = action
     }
     
-    var body: some View {
+    public var body: some View {
         Button(action: action) {
             Text("Close")
                 .font(.system(size: 16, weight: .medium))

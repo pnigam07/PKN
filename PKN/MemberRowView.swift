@@ -1,11 +1,11 @@
 import SwiftUI
 
 public struct MemberRowView: View {
-    let member: Member
+    let member: DMCMember
     let isSelected: Bool
     let onTap: () -> Void
     
-    init(member: Member, isSelected: Bool, onTap: @escaping () -> Void) {
+    public init(member: DMCMember, isSelected: Bool, onTap: @escaping () -> Void) {
         self.member = member
         self.isSelected = isSelected
         self.onTap = onTap
@@ -13,7 +13,7 @@ public struct MemberRowView: View {
     
     public var body: some View {
         HStack(spacing: AppDimensions.Spacing.large) {
-            MemberAvatarView(initials: member.initials)
+            DMCMemberAvatarView(initials: member.avatarInitial)
                 .accessibilityIdentifier(MemberListAccessibility.avatar(member.id))
             
             VStack(alignment: .leading, spacing: AppDimensions.Spacing.small) {

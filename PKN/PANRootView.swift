@@ -2,7 +2,7 @@ import SwiftUI
 
 // MARK: - Root View
 struct PANRootView: View {
-    @StateObject private var memberListViewModel = MemberListViewModel()
+    @StateObject private var memberListViewModel = DMCMemberListViewModel()
     @State private var isShowingMemberList = false
     
     var body: some View {

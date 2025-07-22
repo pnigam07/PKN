@@ -119,11 +119,11 @@ func testMemberRowViewSelectedState() throws {
 }
 ```
 
-### 6. Testing MemberAvatarView
+### 6. Testing DMCMemberAvatarView
 
 ```swift
-func testMemberAvatarView() throws {
-    let avatarView = MemberAvatarView(initials: "JD")
+func testDMCMemberAvatarView() throws {
+    let avatarView = DMCMemberAvatarView(initials: "JD")
     
     let view = try avatarView.inspect()
     XCTAssertNotNil(view)
@@ -159,7 +159,7 @@ func testMemberListViewWithCustomMembers() throws {
         Member(id: 1, name: "Test User 1"),
         Member(id: 2, name: "Test User 2")
     ]
-    let viewModel = MemberListViewModel(members: customMembers)
+    let viewModel = DMCMemberListViewModel(members: customMembers)
     let memberListView = MemberListView(viewModel: viewModel)
     
     let view = try memberListView.inspect()

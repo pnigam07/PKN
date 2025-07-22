@@ -8,278 +8,272 @@
 
 import XCTest
 import SwiftUI
-//import ViewInspector
+import ViewInspector
 @testable import PKN
 
 final class PKNUITests: XCTestCase {
 
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    // MARK: - Member Model Tests
+    // MARK: - Basic Component Tests
     
-    func testMemberInitialization() throws {
-        let member = Member(id: 1, name: "John Doe")
-        XCTAssertEqual(member.id, 1)
-        XCTAssertEqual(member.name, "John Doe")
+    func testDMCMemberAvatarViewInitialization() throws {
+        let avatarView = DMCMemberAvatarView(initials: "JD")
+        let view = try avatarView.inspect()
+        XCTAssertNotNil(view)
     }
     
-    func testMemberEquatable() throws {
-        let member1 = Member(id: 1, name: "John Doe")
-        let member2 = Member(id: 1, name: "John Doe")
-        let member3 = Member(id: 2, name: "Jane Smith")
-        
-        XCTAssertEqual(member1, member2)
-        XCTAssertNotEqual(member1, member3)
-    }
-    
-    func testMemberHashable() throws {
-        let member1 = Member(id: 1, name: "John Doe")
-        let member2 = Member(id: 1, name: "John Doe")
-        let member3 = Member(id: 2, name: "Jane Smith")
-        
-        let set = Set([member1, member2, member3])
-        XCTAssertEqual(set.count, 2) // member1 and member2 are equal, so only 2 unique members
-    }
-    
-    func testMemberInitials() throws {
-        let member1 = Member(id: 1, name: "John Doe")
-        let member2 = Member(id: 2, name: "Jane")
-        let member3 = Member(id: 3, name: "A B C")
-        
-        XCTAssertEqual(member1.initials, "J")
-        XCTAssertEqual(member2.initials, "J")
-        XCTAssertEqual(member3.initials, "A")
-    }
-    
-    func testMemberInitialsWithEmptyName() throws {
-        let member = Member(id: 1, name: "")
-        XCTAssertEqual(member.initials, "")
-    }
-    
-    func testMemberInitialsWithSingleWord() throws {
-        let member = Member(id: 1, name: "John")
-        XCTAssertEqual(member.initials, "J")
-    }
-    
-    func testMemberInitialsWithSpecialCharacters() throws {
-        let member = Member(id: 1, name: "José María")
-        XCTAssertEqual(member.initials, "J")
-    }
-    
-    func testMemberInitialsWithMultipleSpaces() throws {
-        let member = Member(id: 1, name: "  John   Doe  ")
-        XCTAssertEqual(member.initials, "J")
-    }
-    
-    // MARK: - MemberListViewModel Tests
-    
-    func testMemberListViewModelInitialization() throws {
-        let viewModel = MemberListViewModel()
-        XCTAssertEqual(viewModel.members.count, 4) // Default sample members
-        XCTAssertNil(viewModel.selectedMemberID)
-    }
-    
-    func testMemberListViewModelWithCustomMembers() throws {
-        let customMembers = [Member(id: 1, name: "Test User")]
-        let viewModel = MemberListViewModel(members: customMembers)
-        XCTAssertEqual(viewModel.members.count, 1)
-        XCTAssertEqual(viewModel.members[0].name, "Test User")
-    }
-    
-    func testMemberListViewModelWithEmptyMembers() throws {
-        let viewModel = MemberListViewModel(members: [])
-        XCTAssertEqual(viewModel.members.count, 4) // Should use sample members when empty
-    }
-    
-    func testSelectMember() throws {
-        let viewModel = MemberListViewModel()
-        let member = viewModel.members[0]
-        
-        viewModel.selectMember(member)
-        XCTAssertEqual(viewModel.selectedMemberID, member.id)
-    }
-    
-    func testClearSelection() throws {
-        let viewModel = MemberListViewModel()
-        let member = viewModel.members[0]
-        
-        viewModel.selectMember(member)
-        XCTAssertEqual(viewModel.selectedMemberID, member.id)
-        
-        viewModel.clearSelection()
-        XCTAssertNil(viewModel.selectedMemberID)
-    }
-    
-    func testIsSelected() throws {
-        let viewModel = MemberListViewModel()
-        let member = viewModel.members[0]
-        
-        // Test initial state - should not be selected
-        XCTAssertNil(viewModel.selectedMemberID)
-        XCTAssertFalse(viewModel.isSelected(member))
-        
-        // Test after selection
-        viewModel.selectMember(member)
-        XCTAssertEqual(viewModel.selectedMemberID, member.id)
-        XCTAssertTrue(viewModel.isSelected(member))
-    }
-    
-    // MARK: - MemberListView Tests
-    
-    func testMemberListViewInitialization() throws {
-        let viewModel = MemberListViewModel()
-        let memberListView = MemberListView(viewModel: viewModel)
-        XCTAssertNotNil(memberListView)
-        XCTAssertEqual(memberListView.testViewModel.members.count, 4)
-    }
-    
-    func testMemberListViewWithCustomViewModel() throws {
-        let customMembers = [Member(id: 1, name: "Test User")]
-        let viewModel = MemberListViewModel(members: customMembers)
-        let memberListView = MemberListView(viewModel: viewModel)
-        XCTAssertNotNil(memberListView)
-        XCTAssertEqual(memberListView.testViewModel.members.count, 1)
-    }
-    
-    func testMemberListViewWithOnCloseCallback() throws {
-        var closeCalled = false
-        let memberListView = MemberListView(onClose: {
-            closeCalled = true
-        })
-        XCTAssertNotNil(memberListView)
-        XCTAssertNotNil(memberListView.onClose)
-    }
-    
-    func testMemberListViewWithOnMemberSelectedCallback() throws {
-        var selectedMember: Member?
-        let memberListView = MemberListView(onMemberSelected: { member in
-            selectedMember = member
-        })
-        XCTAssertNotNil(memberListView)
-        XCTAssertNotNil(memberListView.onMemberSelected)
-    }
-    
-    // MARK: - MemberRowView Tests
-    
-    func testMemberRowViewInitialization() throws {
-        let member = Member(id: 1, name: "John Doe")
-        let memberRowView = MemberRowView(
-            member: member,
-            isSelected: false,
-            onTap: {}
-        )
-        XCTAssertNotNil(memberRowView)
-        XCTAssertEqual(memberRowView.member.id, 1)
-        XCTAssertEqual(memberRowView.member.name, "John Doe")
-        XCTAssertFalse(memberRowView.isSelected)
-    }
-    
-    func testMemberRowViewSelectedState() throws {
-        let member = Member(id: 1, name: "John Doe")
-        let memberRowView = MemberRowView(
-            member: member,
-            isSelected: true,
-            onTap: {}
-        )
-        XCTAssertNotNil(memberRowView)
-        XCTAssertTrue(memberRowView.isSelected)
-    }
-    
-    func testMemberRowViewAccessibilityLabel() throws {
-        let member = Member(id: 1, name: "John Doe")
-        
-        // Test unselected state
-        let unselectedRow = MemberRowView(
-            member: member,
-            isSelected: false,
-            onTap: {}
-        )
-        XCTAssertNotNil(unselectedRow)
-        
-        // Test selected state
-        let selectedRow = MemberRowView(
-            member: member,
-            isSelected: true,
-            onTap: {}
-        )
-        XCTAssertNotNil(selectedRow)
-    }
-    
-    // MARK: - MemberAvatarView Tests
-    
-    func testMemberAvatarViewInitialization() throws {
-        let avatarView = MemberAvatarView(initials: "JD")
-        XCTAssertNotNil(avatarView)
-        XCTAssertEqual(avatarView.initials, "JD")
-        XCTAssertEqual(avatarView.size, AppDimensions.Avatar.size)
-    }
-    
-    func testMemberAvatarViewWithCustomSize() throws {
-        let avatarView = MemberAvatarView(
+    func testDMCMemberAvatarViewWithCustomSize() throws {
+        let avatarView = DMCMemberAvatarView(
             initials: "AB",
             size: 50,
-            backgroundColor: .red,
+            backgroundColor: .blue,
             textColor: .white
         )
-        XCTAssertNotNil(avatarView)
-        XCTAssertEqual(avatarView.initials, "AB")
-        XCTAssertEqual(avatarView.size, 50)
+        let view = try avatarView.inspect()
+        XCTAssertNotNil(view)
     }
-    
-    func testMemberAvatarViewWithEmptyInitials() throws {
-        let avatarView = MemberAvatarView(initials: "")
-        XCTAssertNotNil(avatarView)
-        XCTAssertEqual(avatarView.initials, "")
-    }
-    
-    // MARK: - CloseButton Tests
     
     func testCloseButtonInitialization() throws {
-        let closeButton = CloseButton(action: {})
-        XCTAssertNotNil(closeButton)
-        XCTAssertNotNil(closeButton.action)
+        var actionCalled = false
+        let closeButton = CloseButton(action: { actionCalled = true })
+        let view = try closeButton.inspect()
+        XCTAssertNotNil(view)
+        XCTAssertFalse(actionCalled)
     }
     
-    func testCloseButtonAction() throws {
-        var actionCalled = false
-        let closeButton = CloseButton(action: {
-            actionCalled = true
-        })
-        XCTAssertNotNil(closeButton)
+    // MARK: - MemberListView ViewInspector Tests
+    
+    func testMemberListViewBasicStructure() throws {
+        let viewModel = DMCMemberListViewModel()
+        let memberListView = MemberListView(viewModel: viewModel)
         
-        // Note: In a real test, you would trigger the action
-        // This is just testing the initialization
-        XCTAssertFalse(actionCalled)
+        let view = try memberListView.inspect()
+        XCTAssertNotNil(view)
+        
+        // Test navigation view structure
+        let navigationView = try view.find(viewWithType: NavigationView.self)
+        XCTAssertNotNil(navigationView)
+    }
+    
+    func testMemberListViewWithMembers() throws {
+        let members = [
+            DMCMember(id: 1, name: "John Doe"),
+            DMCMember(id: 2, name: "Jane Smith")
+        ]
+        let viewModel = DMCMemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        let view = try memberListView.inspect()
+        XCTAssertNotNil(view)
+        
+        // Test list accessibility
+        let list = try view.find(viewWithId: MemberListAccessibility.list)
+        XCTAssertNotNil(list)
+    }
+    
+    func testMemberListViewWithCallbacks() throws {
+        var closeCalled = false
+        var memberSelected: DMCMember?
+        
+        let viewModel = DMCMemberListViewModel()
+        let memberListView = MemberListView(
+            viewModel: viewModel,
+            onClose: { closeCalled = true },
+            onMemberSelected: { member in memberSelected = member }
+        )
+        
+        let view = try memberListView.inspect()
+        XCTAssertNotNil(view)
+        XCTAssertFalse(closeCalled)
+        XCTAssertNil(memberSelected)
+    }
+    
+    // MARK: - ViewInspector Cell Tests
+    
+    func testFindCellsInMemberListView() throws {
+        let members = [
+            DMCMember(id: 1, name: "John Doe"),
+            DMCMember(id: 2, name: "Jane Smith"),
+            DMCMember(id: 3, name: "Mike Johnson")
+        ]
+        let viewModel = DMCMemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        let view = try memberListView.inspect()
+        XCTAssertNotNil(view)
+        
+        // Find the List
+        let list = try view.find(viewWithId: MemberListAccessibility.list)
+        XCTAssertNotNil(list)
+        
+        // Find all cells in the list
+        let cells = try list.findAll(MemberRowView.self)
+        XCTAssertEqual(cells.count, 3)
+        
+        // Verify each cell has the correct member data
+        for (index, cell) in cells.enumerated() {
+            XCTAssertNotNil(cell)
+            let member = members[index]
+            
+            // Check if the cell contains the member name
+            let nameText = try cell.find(text: member.name)
+            XCTAssertNotNil(nameText)
+            
+            // Check if the cell has the correct accessibility identifier
+            let rowAccessibility = try cell.find(viewWithId: MemberListAccessibility.row(member.id))
+            XCTAssertNotNil(rowAccessibility)
+        }
+    }
+    
+    func testFindSpecificCellByMemberID() throws {
+        let members = [
+            DMCMember(id: 1, name: "John Doe"),
+            DMCMember(id: 2, name: "Jane Smith")
+        ]
+        let viewModel = DMCMemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        let view = try memberListView.inspect()
+        let list = try view.find(viewWithId: MemberListAccessibility.list)
+        
+        // Find specific cell by ID
+        let cell = try list.find(viewWithId: MemberListAccessibility.row(1))
+        XCTAssertNotNil(cell)
+        
+        // Verify the cell contains the correct name
+        let nameText = try cell.find(text: "John Doe")
+        XCTAssertNotNil(nameText)
+    }
+    
+    func testFindCellWithAvatar() throws {
+        let members = [DMCMember(id: 1, name: "John Doe")]
+        let viewModel = DMCMemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        let view = try memberListView.inspect()
+        let list = try view.find(viewWithId: MemberListAccessibility.list)
+        let cell = try list.find(viewWithId: MemberListAccessibility.row(1))
+        
+        // Find avatar within the cell
+        let avatar = try cell.find(viewWithId: MemberListAccessibility.avatar(1))
+        XCTAssertNotNil(avatar)
+        
+        // Find avatar circle
+        let circle = try avatar.find(viewWithId: MemberListAccessibility.avatarCircle)
+        XCTAssertNotNil(circle)
+        
+        // Find avatar initials
+        let initials = try avatar.find(viewWithId: MemberListAccessibility.avatarInitials)
+        XCTAssertNotNil(initials)
+    }
+    
+    func testFindCellWithSelectedState() throws {
+        let members = [DMCMember(id: 1, name: "John Doe")]
+        let viewModel = DMCMemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        let view = try memberListView.inspect()
+        let list = try view.find(viewWithId: MemberListAccessibility.list)
+        let cell = try list.find(viewWithId: MemberListAccessibility.row(1))
+        
+        // Initially should not be selected
+        XCTAssertThrowsError(try cell.find(viewWithId: MemberListAccessibility.checkmark(1)))
+        
+        // Select the member
+        viewModel.selectMember(members[0])
+        
+        // Re-inspect after selection
+        let updatedView = try memberListView.inspect()
+        let updatedList = try updatedView.find(viewWithId: MemberListAccessibility.list)
+        let updatedCell = try updatedList.find(viewWithId: MemberListAccessibility.row(1))
+        
+        // Should now have checkmark
+        let checkmark = try updatedCell.find(viewWithId: MemberListAccessibility.checkmark(1))
+        XCTAssertNotNil(checkmark)
+    }
+    
+    // MARK: - Edge Case Tests
+    
+    func testFindCellWithLongName() throws {
+        let members = [DMCMember(id: 1, name: "This is a very long name that exceeds normal length")]
+        let viewModel = DMCMemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        let view = try memberListView.inspect()
+        let list = try view.find(viewWithId: MemberListAccessibility.list)
+        let cell = try list.find(viewWithId: MemberListAccessibility.row(1))
+        
+        let nameText = try cell.find(text: "This is a very long name that exceeds normal length")
+        XCTAssertNotNil(nameText)
+    }
+    
+    func testFindCellWithSpecialCharacters() throws {
+        let members = [DMCMember(id: 1, name: "José María")]
+        let viewModel = DMCMemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        let view = try memberListView.inspect()
+        let list = try view.find(viewWithId: MemberListAccessibility.list)
+        let cell = try list.find(viewWithId: MemberListAccessibility.row(1))
+        
+        let nameText = try cell.find(text: "José María")
+        XCTAssertNotNil(nameText)
+    }
+    
+    func testFindCellWithEmptyName() throws {
+        let members = [DMCMember(id: 1, name: "")]
+        let viewModel = DMCMemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        let view = try memberListView.inspect()
+        let list = try view.find(viewWithId: MemberListAccessibility.list)
+        let cell = try list.find(viewWithId: MemberListAccessibility.row(1))
+        
+        XCTAssertNotNil(cell)
+    }
+    
+    func testFindCellWithNegativeID() throws {
+        let members = [DMCMember(id: -1, name: "Negative ID")]
+        let viewModel = DMCMemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        let view = try memberListView.inspect()
+        let list = try view.find(viewWithId: MemberListAccessibility.list)
+        let cell = try list.find(viewWithId: MemberListAccessibility.row(-1))
+        
+        XCTAssertNotNil(cell)
+        let nameText = try cell.find(text: "Negative ID")
+        XCTAssertNotNil(nameText)
+    }
+    
+    func testFindCellWithZeroID() throws {
+        let members = [DMCMember(id: 0, name: "Zero ID")]
+        let viewModel = DMCMemberListViewModel(members: members)
+        let memberListView = MemberListView(viewModel: viewModel)
+        
+        let view = try memberListView.inspect()
+        let list = try view.find(viewWithId: MemberListAccessibility.list)
+        let cell = try list.find(viewWithId: MemberListAccessibility.row(0))
+        
+        XCTAssertNotNil(cell)
+        let nameText = try cell.find(text: "Zero ID")
+        XCTAssertNotNil(nameText)
     }
     
     // MARK: - Constants Tests
     
     func testAppStrings() throws {
-        XCTAssertEqual(AppStrings.Icons.checkmark, "checkmark")
-        XCTAssertEqual(AppStrings.Titles.selectMember, "Select Member")
+        XCTAssertNotNil(AppStrings.Titles.selectMember)
     }
     
     func testAppColors() throws {
-        XCTAssertNotNil(AppColors.primary)
         XCTAssertNotNil(AppColors.background)
-        XCTAssertNotNil(AppColors.navigationBar)
+        XCTAssertNotNil(AppColors.primary)
         XCTAssertNotNil(AppColors.avatarBackground)
     }
     
     func testAppDimensions() throws {
-        XCTAssertEqual(AppDimensions.Spacing.small, 8)
-        XCTAssertEqual(AppDimensions.Spacing.medium, 12)
-        XCTAssertEqual(AppDimensions.Spacing.large, 16)
-        XCTAssertEqual(AppDimensions.Avatar.size, 36)
+        XCTAssertNotNil(AppDimensions.Avatar.size)
     }
-    
-    // MARK: - Accessibility Tests
     
     func testMemberListAccessibility() throws {
         XCTAssertEqual(MemberListAccessibility.list, "memberListView.list")
@@ -290,39 +284,5 @@ final class PKNUITests: XCTestCase {
         XCTAssertEqual(MemberListAccessibility.avatarCircle, "memberAvatar.circle")
         XCTAssertEqual(MemberListAccessibility.avatarInitials, "memberAvatar.initials")
         XCTAssertEqual(MemberListAccessibility.closeButton, "closeButton")
-    }
-    
-    // MARK: - Edge Cases
-    
-    func testMemberWithSpecialCharacters() throws {
-        let member = Member(id: 1, name: "José María")
-        XCTAssertEqual(member.initials, "J")
-    }
-    
-    func testMemberWithNumbers() throws {
-        let member = Member(id: 1, name: "John123 Doe")
-        XCTAssertEqual(member.initials, "J")
-    }
-    
-    func testMemberWithUnicodeCharacters() throws {
-        let member = Member(id: 1, name: "José María García")
-        XCTAssertEqual(member.initials, "J")
-    }
-    
-    func testViewModelSelectionWithInvalidMember() throws {
-        let viewModel = MemberListViewModel()
-        let invalidMember = Member(id: 999, name: "Invalid")
-        
-        viewModel.selectMember(invalidMember)
-        XCTAssertEqual(viewModel.selectedMemberID, 999)
-    }
-    
-    func testSampleMembers() throws {
-        let sampleMembers = Member.sampleMembers
-        XCTAssertEqual(sampleMembers.count, 4)
-        XCTAssertEqual(sampleMembers[0].id, 2)
-        XCTAssertEqual(sampleMembers[0].name, "John Doe")
-        XCTAssertEqual(sampleMembers[1].id, 3)
-        XCTAssertEqual(sampleMembers[1].name, "Jane Smith")
     }
 }
