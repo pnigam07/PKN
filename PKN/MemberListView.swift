@@ -7,6 +7,7 @@ struct Member: Identifiable, Equatable, Hashable, Codable {
     
     var initials: String {
         let components = name.components(separatedBy: " ")
+        
         return components.first?.prefix(1).uppercased() ?? String(name.prefix(1)).uppercased()
     }
     

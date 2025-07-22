@@ -1,0 +1,24 @@
+{
+  "source": "/Users/pankajnigam/Desktop/Projects/PKN/PKN/MemberListView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Close",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 151
+        }
+      },
+      {
+        "comment": "",
+        "key": "Close",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 147
+        }
+      }
+    ]
+  },
+  "version": 1
+}

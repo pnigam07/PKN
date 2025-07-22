@@ -1,0 +1,45 @@
+{
+  "" : {
+    "const-values" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PKN-master.swiftconstvalues",
+    "dependencies" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PKN-master.d",
+    "diagnostics" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PKN-master.dia",
+    "emit-module-dependencies" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PKN-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PKN-master-emit-module.dia",
+    "swift-dependencies" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PKN-master.swiftdeps"
+  },
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/Constants.swift" : {
+    "index-unit-output-path" : "/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/Constants.o",
+    "llvm-bc" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/Constants.bc",
+    "object" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/Constants.o"
+  },
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/ContentView.swift" : {
+    "index-unit-output-path" : "/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/ContentView.o",
+    "llvm-bc" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/ContentView.bc",
+    "object" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/ContentView.o"
+  },
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/MemberListView.swift" : {
+    "index-unit-output-path" : "/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/MemberListView.o",
+    "llvm-bc" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/MemberListView.bc",
+    "object" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/MemberListView.o"
+  },
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/MemberRowView.swift" : {
+    "index-unit-output-path" : "/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/MemberRowView.o",
+    "llvm-bc" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/MemberRowView.bc",
+    "object" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/MemberRowView.o"
+  },
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/PANRootView.swift" : {
+    "index-unit-output-path" : "/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PANRootView.o",
+    "llvm-bc" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PANRootView.bc",
+    "object" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PANRootView.o"
+  },
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/PKNApp.swift" : {
+    "index-unit-output-path" : "/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PKNApp.o",
+    "llvm-bc" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PKNApp.bc",
+    "object" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/PKNApp.o"
+  },
+  "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/Objects-normal/arm64/GeneratedAssetSymbols.o"
+  }
+}

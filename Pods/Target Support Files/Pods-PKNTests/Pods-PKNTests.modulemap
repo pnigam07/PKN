@@ -1,0 +1,6 @@
+framework module Pods_PKNTests {
+  umbrella header "Pods-PKNTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

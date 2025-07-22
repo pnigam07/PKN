@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+Target 'PKNUITests' in project 'PKN'
+➜ Explicit dependency on target 'PKN' in project 'PKN'
+Target 'PKN' in project 'PKN' (no dependencies)

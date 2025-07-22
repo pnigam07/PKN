@@ -1,0 +1,25 @@
+{
+  "" : {
+    "const-values" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITests-master.swiftconstvalues",
+    "dependencies" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITests-master.d",
+    "diagnostics" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITests-master.dia",
+    "emit-module-dependencies" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITests-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITests-master-emit-module.dia",
+    "swift-dependencies" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITests-master.swiftdeps"
+  },
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKNUITests/MemberListViewComponentTests.swift" : {
+    "index-unit-output-path" : "/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/MemberListViewComponentTests.o",
+    "llvm-bc" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/MemberListViewComponentTests.bc",
+    "object" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/MemberListViewComponentTests.o"
+  },
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKNUITests/PKNUITests.swift" : {
+    "index-unit-output-path" : "/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITests.o",
+    "llvm-bc" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITests.bc",
+    "object" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITests.o"
+  },
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKNUITests/PKNUITestsLaunchTests.swift" : {
+    "index-unit-output-path" : "/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITestsLaunchTests.o",
+    "llvm-bc" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITestsLaunchTests.bc",
+    "object" : "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKNUITests.build/Objects-normal/arm64/PKNUITestsLaunchTests.o"
+  }
+}

@@ -1,0 +1,12 @@
+version: "Apple Swift version 6.1.2 (swiftlang-6.1.2.1.2 clang-1700.0.13.5)"
+options: "4a5f06c7ddfe1a5181535fcdd8a0cd2a7f34b1e76005e366e345ecd3c0c2f1fe"
+build_start_time: [1753157415, 919403000]
+build_end_time: [1753157418, 885298000]
+inputs:
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/Constants.swift": [1753126310, 288352457]
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/ContentView.swift": [1753122999, 310444908]
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/MemberListView.swift": [1753156679, 682315562]
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/MemberRowView.swift": [1753115921, 947608960]
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/PANRootView.swift": [1753114231, 974284557]
+  "/Users/pankajnigam/Desktop/Projects/PKN/PKN/PKNApp.swift": [1753122891, 434579027]
+  "/Users/pankajnigam/Desktop/Projects/PKN/build/PKN.build/Release-iphoneos/PKN.build/DerivedSources/GeneratedAssetSymbols.swift": [1753157415, 796645162]

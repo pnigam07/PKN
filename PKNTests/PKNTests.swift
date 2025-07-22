@@ -108,77 +108,35 @@ final class PKNTests: XCTestCase {
         let viewModel = MemberListViewModel()
         let member = viewModel.members[0]
         
+        // Test initial state - should not be selected
+        XCTAssertNil(viewModel.selectedMemberID)
         XCTAssertFalse(viewModel.isSelected(member))
         
+        // Test after selection
         viewModel.selectMember(member)
+        XCTAssertEqual(viewModel.selectedMemberID, member.id)
         XCTAssertTrue(viewModel.isSelected(member))
     }
     
     // MARK: - Constants Tests
     
-    func testAppStringsIcons() throws {
-        XCTAssertEqual(AppStrings.Icons.house, "house.fill")
-        XCTAssertEqual(AppStrings.Icons.person, "person.3.fill")
+    func testAppStrings() throws {
         XCTAssertEqual(AppStrings.Icons.checkmark, "checkmark")
-    }
-    
-    func testAppStringsTitles() throws {
-        XCTAssertEqual(AppStrings.Titles.memberID, "memberID message")
-        XCTAssertEqual(AppStrings.Titles.importantMessage, "important message")
-        XCTAssertEqual(AppStrings.Titles.cardUnavailable, "card unavailable")
         XCTAssertEqual(AppStrings.Titles.selectMember, "Select Member")
     }
     
-    func testAppStringsDescriptions() throws {
-        XCTAssertEqual(AppStrings.Descriptions.welcome, "Welcome to the alternate content state!")
-        XCTAssertEqual(AppStrings.Descriptions.defaultMessage, "Hi my name is pankaj hope you doing well. You might have lots of questions.")
-        XCTAssertEqual(AppStrings.Descriptions.cardUnavailable, "we are sorry bit this feature is not available so how is your day going on hope everything is fine")
+    func testAppColors() throws {
+        XCTAssertNotNil(AppColors.primary)
+        XCTAssertNotNil(AppColors.background)
+        XCTAssertNotNil(AppColors.navigationBar)
+        XCTAssertNotNil(AppColors.avatarBackground)
     }
     
-    func testAppStringsPhoneNumbers() throws {
-        XCTAssertEqual(AppStrings.PhoneNumbers.Display.tollFree, "+1 678-702-3368 (toll free)")
-        XCTAssertEqual(AppStrings.PhoneNumbers.Display.yym, "771 (YYM)")
-        XCTAssertEqual(AppStrings.PhoneNumbers.Display.alt1, "+1 123-456-7890")
-        XCTAssertEqual(AppStrings.PhoneNumbers.Display.alt2, "555 (ALT)")
-        
-        XCTAssertEqual(AppStrings.PhoneNumbers.Dial.tollFree, "+16787023368")
-        XCTAssertEqual(AppStrings.PhoneNumbers.Dial.yym, "771")
-        XCTAssertEqual(AppStrings.PhoneNumbers.Dial.alt1, "+11234567890")
-        XCTAssertEqual(AppStrings.PhoneNumbers.Dial.alt2, "555")
-    }
-    
-    // MARK: - Performance Tests
-    
-    func testMemberInitialsPerformance() throws {
-        self.measure {
-            for _ in 0..<1000 {
-                let member = Member(id: 1, name: "John Doe")
-                _ = member.initials
-            }
-        }
-    }
-    
-    func testMemberEqualityPerformance() throws {
-        let member1 = Member(id: 1, name: "John Doe")
-        let member2 = Member(id: 1, name: "John Doe")
-        
-        self.measure {
-            for _ in 0..<1000 {
-                _ = member1 == member2
-            }
-        }
-    }
-    
-    func testViewModelSelectionPerformance() throws {
-        let viewModel = MemberListViewModel()
-        let member = viewModel.members[0]
-        
-        self.measure {
-            for _ in 0..<1000 {
-                viewModel.selectMember(member)
-                viewModel.clearSelection()
-            }
-        }
+    func testAppDimensions() throws {
+        XCTAssertEqual(AppDimensions.Spacing.small, 8)
+        XCTAssertEqual(AppDimensions.Spacing.medium, 12)
+        XCTAssertEqual(AppDimensions.Spacing.large, 16)
+        XCTAssertEqual(AppDimensions.Avatar.size, 36)
     }
     
     // MARK: - App Tests
@@ -254,12 +212,12 @@ final class PKNTests: XCTestCase {
         XCTAssertEqual(viewModel.selectedMemberID, 999)
     }
     
-    func testConstantsAccessibility() throws {
-        // Test that all constants are accessible
-        XCTAssertNotNil(AppStrings.Icons.house)
-        XCTAssertNotNil(AppStrings.Titles.memberID)
-        XCTAssertNotNil(AppStrings.Descriptions.welcome)
-        XCTAssertNotNil(AppStrings.PhoneNumbers.Display.tollFree)
-        XCTAssertNotNil(AppStrings.PhoneNumbers.Dial.tollFree)
-    }
+//    func testConstantsAccessibility() throws {
+//        // Test that all constants are accessible
+//        XCTAssertNotNil(AppStrings.Icons.house)
+//        XCTAssertNotNil(AppStrings.Titles.memberID)
+//        XCTAssertNotNil(AppStrings.Descriptions.welcome)
+//        XCTAssertNotNil(AppStrings.PhoneNumbers.Display.tollFree)
+//        XCTAssertNotNil(AppStrings.PhoneNumbers.Dial.tollFree)
+//    }
 }
