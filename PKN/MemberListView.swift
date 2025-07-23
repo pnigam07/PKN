@@ -85,7 +85,7 @@ public struct MemberListView: View {
         .listStyle(PlainListStyle())
         .frame(maxWidth: .infinity)
         .navigationTitle(AppStrings.Titles.selectMember)
-        .toolbarBackground(.red, for: .navigationBar)
+        .toolbarBackground(.gray, for: .navigationBar)
         .toolbarBackground(.visible, for: .navigationBar)
         .accessibilityIdentifier(MemberListAccessibility.list)
     }
@@ -147,6 +147,10 @@ public struct CloseButton: View {
             Text("Close")
                 .font(.system(size: 16, weight: .medium))
                 .foregroundColor(AppColors.primary)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(Color.white)
+                .cornerRadius(16)
         }
         .accessibilityLabel("Close")
         .accessibilityIdentifier(MemberListAccessibility.closeButton)

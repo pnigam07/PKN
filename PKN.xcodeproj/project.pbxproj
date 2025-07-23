@@ -10,6 +10,9 @@
 		1912DDBC2E2F43FC005E8476 /* MemberListViewComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1912DDBB2E2F43FC005E8476 /* MemberListViewComponentTests.swift */; };
 		1965C4F32E2F4D7F004223C0 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 1965C4F22E2F4D7F004223C0 /* ViewInspector */; };
 		1965C4F52E2F65B1004223C0 /* MemberListViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1965C4F42E2F65B1004223C0 /* MemberListViewTests.swift */; };
+		1965C5CF2E2F9738004223C0 /* PublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1965C5CE2E2F9738004223C0 /* PublisherTests.swift */; };
+		1965C5D12E2F97C3004223C0 /* MemberListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1965C5D02E2F97C3004223C0 /* MemberListViewModelTests.swift */; };
+		1965C5D32E310B9F004223C0 /* SwiftUI_Architecture.drawio in Resources */ = {isa = PBXBuildFile; fileRef = 1965C5D22E310B9F004223C0 /* SwiftUI_Architecture.drawio */; };
 		19CF6F8D2E2EBFCB0059D20A /* PKNApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF6F8C2E2EBFCB0059D20A /* PKNApp.swift */; };
 		19CF6F8F2E2EBFCB0059D20A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19CF6F8E2E2EBFCB0059D20A /* ContentView.swift */; };
 		19CF6F912E2EBFCC0059D20A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19CF6F902E2EBFCC0059D20A /* Assets.xcassets */; };
@@ -47,6 +50,9 @@
 		104CEB5CF7BDB5711D27E77F /* Pods-PKN-PKNUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PKN-PKNUITests.debug.xcconfig"; path = "Target Support Files/Pods-PKN-PKNUITests/Pods-PKN-PKNUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		1912DDBB2E2F43FC005E8476 /* MemberListViewComponentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListViewComponentTests.swift; sourceTree = "<group>"; };
 		1965C4F42E2F65B1004223C0 /* MemberListViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListViewTests.swift; sourceTree = "<group>"; };
+		1965C5CE2E2F9738004223C0 /* PublisherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherTests.swift; sourceTree = "<group>"; };
+		1965C5D02E2F97C3004223C0 /* MemberListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListViewModelTests.swift; sourceTree = "<group>"; };
+		1965C5D22E310B9F004223C0 /* SwiftUI_Architecture.drawio */ = {isa = PBXFileReference; lastKnownFileType = text; path = SwiftUI_Architecture.drawio; sourceTree = "<group>"; };
 		19CF6F892E2EBFCB0059D20A /* PKN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PKN.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19CF6F8C2E2EBFCB0059D20A /* PKNApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PKNApp.swift; sourceTree = "<group>"; };
 		19CF6F8E2E2EBFCB0059D20A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -127,6 +133,7 @@
 			children = (
 				19CF6F8C2E2EBFCB0059D20A /* PKNApp.swift */,
 				19CF6FBC2E2EC04E0059D20A /* Constants.swift */,
+				1965C5D22E310B9F004223C0 /* SwiftUI_Architecture.drawio */,
 				19CF6FB62E2EBFE00059D20A /* PANRootView.swift */,
 				19CF6FB82E2EBFE60059D20A /* MemberListView.swift */,
 				19CF6FBA2E2EBFEF0059D20A /* MemberRowView.swift */,
@@ -148,6 +155,8 @@
 		19CF6F9C2E2EBFCC0059D20A /* PKNTests */ = {
 			isa = PBXGroup;
 			children = (
+				1965C5D02E2F97C3004223C0 /* MemberListViewModelTests.swift */,
+				1965C5CE2E2F9738004223C0 /* PublisherTests.swift */,
 				19CF6F9D2E2EBFCC0059D20A /* PKNTests.swift */,
 			);
 			path = PKNTests;
@@ -298,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19CF6F942E2EBFCC0059D20A /* Preview Assets.xcassets in Resources */,
+				1965C5D32E310B9F004223C0 /* SwiftUI_Architecture.drawio in Resources */,
 				19CF6F912E2EBFCC0059D20A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,6 +415,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1965C5D12E2F97C3004223C0 /* MemberListViewModelTests.swift in Sources */,
+				1965C5CF2E2F9738004223C0 /* PublisherTests.swift in Sources */,
 				19CF6F9E2E2EBFCC0059D20A /* PKNTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
