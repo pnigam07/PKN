@@ -15,6 +15,7 @@ public struct MemberRowView: View {
         HStack(spacing: AppDimensions.Spacing.large) {
             DMCMemberAvatarView(initials: member.avatarInitial)
                 .accessibilityIdentifier(MemberListAccessibility.avatar(member.id))
+                .padding(.leading, 8)
             
             VStack(alignment: .leading, spacing: AppDimensions.Spacing.small) {
                 Text(member.name)
@@ -35,7 +36,7 @@ public struct MemberRowView: View {
                     .accessibilityIdentifier(MemberListAccessibility.checkmark(member.id))
             }
         }
-        .padding(.vertical, AppDimensions.Spacing.small)
+        .padding(.vertical, AppDimensions.Spacing.small * 0.7)
         .padding(.horizontal, AppDimensions.Spacing.medium)
         .contentShape(Rectangle())
         .onTapGesture(perform: onTap)

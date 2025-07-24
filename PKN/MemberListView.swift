@@ -70,19 +70,32 @@ public struct MemberListView: View {
     }
     
     private var memberListContent: some View {
-                    List {
-                ForEach(viewModel.members) { member in
-                    MemberRowView(
-                        member: member,
-                        isSelected: viewModel.isSelected(member),
-                        onTap: {
-                            viewModel.selectMember(member)
-                            onMemberSelected?(member)
-                        }
-                    )
-                }
+        List {
+            ForEach(viewModel.members) { member in
+                MemberRowView(
+                    member: member,
+                    isSelected: viewModel.isSelected(member),
+                    onTap: {
+                        viewModel.selectMember(member)
+                        onMemberSelected?(member)
+                    }
+                )
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .listRowBackground(Color.clear)
+                
+                // Custom separator with minimal left padding
+                Rectangle()
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(height: 1.0)
+                    .padding(.leading, 24)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    .listRowBackground(Color.clear)
             }
-        .listStyle(PlainListStyle())
+        }
+        .listStyle(DefaultListStyle())
+        .background(Color.clear)
         .frame(maxWidth: .infinity)
         .navigationTitle(AppStrings.Titles.selectMember)
         .toolbarBackground(.gray, for: .navigationBar)
