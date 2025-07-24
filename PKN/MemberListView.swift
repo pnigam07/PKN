@@ -106,9 +106,7 @@ public struct MemberListView: View {
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading) {
-            if let onClose = onClose {
-                CloseButton(action: onClose)
-            }
+            onClose.map { CloseButton(action: $0) }
         }
     }
 }
